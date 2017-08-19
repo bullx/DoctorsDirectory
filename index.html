@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <title>Contact app</title>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+<script src="controller.js"></script>
+
+<div class="container" ng-controller="AppCtrl">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Doctor Directory</a>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="jumbotron">
+        <div class="container" ng-controller="PanelController as panel">
+            <table class="table">
+
+
+
+
+                <li ng-class="{ active: panel.isSelected(1)}" ng-show="panel.isSelected(1)">
+                    <thead ng-class="{ active: panel.isSelected(1)}" ng-show="panel.isSelected(1)">
+                    <tr>
+
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Speciality
+                        </th>
+                        <th>
+                            Location
+                        </th>
+                        <th>
+                            Rating
+                        </th>
+                    </tr>
+                    </thead>
+                    <h2>  List of Doctor Names</h2>
+                    <tr ng-class="{ active: panel.isSelected(1)}" ng-show="panel.isSelected(1)"ng-repeat="contact in contactlist ">
+
+                        <td> <a href="" data-ng-bind="contact.FullName" id="query" ng-model="query" ng-click="panel.selectTab(2, contact)"></a></td>
+                        <td> {{contact.Speciality}}</td>
+                        <td> {{contact.Location}}</td>
+                        <td> {{contact.Rating}}</td>
+
+                    </tr>
+                        <ul ng-repeat="contact in contactlist" >
+
+
+
+
+                        </ul>
+
+                </li>
+                <li ng-class="{ active: panel.isSelected(2)}" ng-show="panel.isSelected(2)">
+                   <br> Dr.{{panel.doctor.FullName}} has Specialized as {{panel.doctor.Speciality}}.
+                    <br> Dr.{{panel.doctor.FullName}}'s clinic is in {{panel.doctor.Location}} and rating is {{panel.doctor.Rating}}
+                    <br><br>
+                    <br>Other Similar Doctors to Dr.{{panel.doctor.FullName}}<br><button class="btn btn-primary pull-right" ng-click="panel.selectTab(1)">Back</button><br>
+                    <thead ng-class="{ active: panel.isSelected(2)}" ng-show="panel.isSelected(2)">
+
+                    <tr>
+
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Speciality
+                        </th>
+                        <th>
+                            Location
+                        </th>
+                        <th>
+                            Rating
+                        </th>
+                    </tr>
+                    </thead>
+                    <tr ng-class="{ active: panel.isSelected(2)}" ng-show="panel.isSelected(2)"ng-repeat="contact in contactlist | filter:panel.doctor.Speciality | orderBy:'-Rating' ">
+
+                        <td> {{contact.FullName}}</td>
+                        <td> {{contact.Speciality}}</td>
+                        <td> {{contact.Location}}</td>
+                        <td> {{contact.Rating}}</td>
+
+                    </tr>
+                </li>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>
